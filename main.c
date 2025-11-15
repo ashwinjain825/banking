@@ -4,8 +4,7 @@
 #include "data.c"
 
 void clear() {
-    system("cls");     // windows
-    // system("clear"); // linux
+    system("cls");
 }
 
 int main() {
