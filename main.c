@@ -10,6 +10,7 @@ void clear() {
 int main() {
     loadAccounts();
     int choice;
+    printf("---------BankSys---------");
 
 startMenu:
     printf("\n1. Add Account\n2. Manage Account\n3. Exit\nChoice: ");
@@ -43,7 +44,8 @@ startMenu:
 
         if (a == NULL || strcmp(a->dob, pass) != 0) {
             printf("Invalid Account or Password\n");
-            return 0;
+            clear();
+            goto startMenu;
         }
 
         clear();
@@ -58,7 +60,6 @@ startMenu:
             float amt;
             printf("Enter Amount: ");
             scanf("%f", &amt);
-
             deposit(ac, amt);
             clear();
             printf("Deposit Successful\n");
@@ -69,7 +70,6 @@ startMenu:
             float amt;
             printf("Enter Amount: ");
             scanf("%f", &amt);
-
             withdraw(ac, amt);
             clear();
             printf("Withdrawal Successful\n");
