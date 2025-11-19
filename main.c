@@ -53,7 +53,7 @@ startMenu:
         printf("Your Balance: %.2f\n", a->balance);
 
     manageMenu:
-        printf("\n1. Deposit\n2. Withdraw\n3. Delete Account\n4. Get Statement\n5. Back\nChoice: ");
+        printf("\n1. Deposit\n2. Withdraw\n3. Delete Account\n4. Get Statement\n5. Check Balance\n6. Back\nChoice: ");
         int m; scanf("%d", &m);
 
         if (m == 1) {
@@ -87,6 +87,13 @@ startMenu:
             clear();
             printf("Account Statement\n\n");
             getStatement(ac);
+            printf("\n-------------------------\n");
+            goto manageMenu;
+        }
+        else if (m == 5) {
+            clear();
+            printf("Account Balance\n\n");
+            checkBalance(ac);
             printf("\n-------------------------\n");
             goto manageMenu;
         }

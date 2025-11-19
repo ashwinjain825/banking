@@ -96,6 +96,15 @@ void logTransaction(int ac, char* type, float amt, float newBal) {
     fclose(fp);
 }
 
+void checkBalance(int ac) {
+    struct Account* a = findAccount(ac);
+    if (a) {
+        printf("Current Balance: %.2f\n", a->balance);
+    } else {
+        printf("Account not found.\n");
+    }
+}
+
 void getStatement(int ac) {
     char filename[30];
     sprintf(filename, "%d.txt", ac);
