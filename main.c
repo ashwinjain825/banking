@@ -12,11 +12,10 @@ int main() {
     int choice;
     printf("---------BankSys---------");
 
-startMenu:
-    printf("\n1. Add Account\n2. Manage Account\n3. Exit\nChoice: ");
-    scanf("%d", &choice);
-
-    clear();
+    startMenu:
+        printf("\n1. Add Account\n2. Manage Account\n3. Exit\nChoice: ");
+        scanf("%d", &choice); 
+        clear();
 
     if (choice == 1) {
         struct Account a;
@@ -71,8 +70,13 @@ startMenu:
             printf("Enter Amount: ");
             scanf("%f", &amt);
             withdraw(ac, amt);
-            clear();
-            printf("Withdrawal Successful\n");
+            if (withdraw(ac, amt)) {
+                clear();
+                printf("Withdrawal Successful\n");
+            } else {
+                clear();
+                printf("Withdrawal Failed: Insufficient Balance\n");
+            }
             goto manageMenu;
         }
 
@@ -100,7 +104,7 @@ startMenu:
 
         else {
             clear();
-            goto startMenu;
+            return 0;
         }
 
     }

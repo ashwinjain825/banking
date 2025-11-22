@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
+#include <time.h>
 #include "data.h"
 
 struct Account accounts[100];
@@ -54,14 +56,17 @@ void deposit(int ac, float amt) {
 }
 
 
-void withdraw(int ac, float amt) {
+int withdraw(int ac, float amt) {
     struct Account* a = findAccount(ac);
     if (a && a->balance >= amt) {
         a->balance -= amt;
         saveAccounts();
         logTransaction(ac, "DR", amt, a->balance);
+        return 1;  // success
     }
+    return 0; // failure
 }
+
 
 
 void showAll() {
@@ -92,7 +97,7 @@ void logTransaction(int ac, char* type, float amt, float newBal) {
     sprintf(filename, "%d.txt", ac);
 
     FILE *fp = fopen(filename, "a");
-    fprintf(fp, "%s %.2f | Bal: %.2f\n", type, amt, newBal);
+    fprintf(fp, "TID %s %s %.2f | Bal: %.2f\n", TransactionIdGenerator(), type, amt, newBal);
     fclose(fp);
 }
 
@@ -116,11 +121,31 @@ void getStatement(int ac) {
     }
 
     char line[200];
+    char tid[20], type[5];
+    float amt, bal;
+
+    printf("----------------------------------------------------------\n");
+    printf("|   TID           |  TYPE  |   AMOUNT   |   BALANCE      |\n");
+    printf("----------------------------------------------------------\n");
+
     while (fgets(line, sizeof(line), fp)) {
-        printf("%s", line);
+        sscanf(line, "TID %s %s %f | Bal: %f", tid, type, &amt, &bal);
+        printf("| %-15s | %-6s | %-10.2f | %-14.2f |\n", tid, type, amt, bal);
     }
 
+    printf("---------------------------------------------------------------\n");
     fclose(fp);
+}
+
+
+char* TransactionIdGenerator() {
+    time_t now = time(NULL);
+    struct tm *t = localtime(&now);
+
+    char *timestamp = malloc(20);  // allocate memory
+    strftime(timestamp, 20, "%Y%m%d%H%M%S", t);
+
+    return timestamp; // caller must free()
 }
 
 

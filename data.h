@@ -13,11 +13,12 @@ void saveAccounts();
 void addAccount(struct Account a);
 struct Account* findAccount(int ac);
 void deposit(int ac, float amt);
-void withdraw(int ac, float amt);
+int withdraw(int ac, float amt);
 void deleteAccount(int ac);
 void getStatement(int ac);
 void checkBalance(int ac);
 void logTransaction(int ac, char* type, float amt, float newBal);
+char* TransactionIdGenerator();
 
 
 void showAll();
