@@ -17,39 +17,39 @@ int main() {
         scanf("%d", &choice); 
         clear();
 
-    if (choice == 1) {
-        struct Account a;
-        printf("AC No: "); scanf("%d", &a.ac);
-        printf("Name: "); scanf("%s", a.name);
-        printf("DOB (Password): "); scanf("%s", a.dob);
-        printf("Balance: "); scanf("%f", &a.balance);
+        if (choice == 1) {
+            struct Account a;
+            printf("AC No: "); scanf("%d", &a.ac);
+            printf("Name: "); scanf("%s", a.name);
+            printf("DOB (Password): "); scanf("%s", a.dob);
+            printf("Balance: "); scanf("%f", &a.balance);
 
-        addAccount(a);
-        clear();
-        goto startMenu;
-    }
-
-    else if (choice == 2) {
-        int ac;
-        char pass[20];
-
-        printf("Enter AC No: ");
-        scanf("%d", &ac);
-
-        printf("Enter Password (DOB): ");
-        scanf("%s", pass);
-
-        struct Account* a = findAccount(ac);
-
-        if (a == NULL || strcmp(a->dob, pass) != 0) {
-            printf("Invalid Account or Password\n");
+            addAccount(a);
             clear();
             goto startMenu;
         }
 
-        clear();
-        printf("Welcome %s\n", a->name);
-        printf("Your Balance: %.2f\n", a->balance);
+        else if (choice == 2) {
+            int ac;
+            char pass[20];
+
+            printf("Enter AC No: ");
+            scanf("%d", &ac);
+
+            printf("Enter Password (DOB): ");
+            scanf("%s", pass);
+
+            struct Account* a = findAccount(ac);
+
+            if (a == NULL || strcmp(a->dob, pass) != 0) {
+                printf("Invalid Account or Password\n");
+                clear();
+                goto startMenu;
+            }
+
+            clear();
+            printf("Welcome %s\n", a->name);
+            printf("Your Balance: %.2f\n", a->balance);
 
     manageMenu:
         printf("\n1. Deposit\n2. Withdraw\n3. Delete Account\n4. Get Statement\n5. Check Balance\n6. Back\nChoice: ");
