@@ -32,7 +32,6 @@ int main() {
         else if (choice == 2) {
             int ac;
             char pass[20];
-
             printf("Enter AC No: ");
             scanf("%d", &ac);
 
